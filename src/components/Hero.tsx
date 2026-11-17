@@ -1,5 +1,4 @@
 import { HERO_CAMPAIGN_IMAGE } from '../data/jackets';
-import { SafeImage } from './SafeImage';
 
 interface HeroProps {
   onShopNow: () => void;
@@ -61,12 +60,12 @@ export function Hero({ onShopNow }: HeroProps) {
           </div>
 
           {/* Right Campaign Imagery Column */}
-          <div className="lg:col-span-7 relative rounded-xl overflow-hidden bg-[#12151C] border border-white/10 min-h-[300px] lg:min-h-[480px]">
-            <SafeImage
+          <div className="lg:col-span-7 relative rounded-xl overflow-hidden bg-[#12151C] border border-white/10 min-h-[340px] lg:min-h-[500px]">
+            <img
               src={HERO_CAMPAIGN_IMAGE}
               alt="Boy, girl, and toddler wearing colorful luxury MK jackets with gold embroidered MK crest on each chest"
-              fallbackTitle="MK Signature Outerwear Lookbook"
-              className="w-full h-full object-cover object-center"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover object-top"
             />
             <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none" />
             <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between text-white text-xs">

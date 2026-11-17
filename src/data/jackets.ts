@@ -1,3 +1,16 @@
+import lookbookBoysImg from '../assets/images/lookbook_boys_street_v3_1794894859420.jpg';
+import lookbookGirlsImg from '../assets/images/lookbook_girls_editorial_v3_1794894859675.jpg';
+import crestMacroImg from '../assets/images/crest_closeup_craft_v3_1794894859796.jpg';
+import emeraldVarsityImg from '../assets/images/jacket_boys_racing_v2_1794755419751.jpg';
+import crimsonPufferImg from '../assets/images/jacket_girls_crimson_puffer_v2_1794755420808.jpg';
+import champagneVelvetImg from '../assets/images/jacket_girls_champagne_velvet_v3_1794894857186.jpg';
+import cobaltLeatherImg from '../assets/images/jacket_boys_midnight_leather_v3_1794894858121.jpg';
+import coralTeddyImg from '../assets/images/jacket_toddler_coral_teddy_v3_1794894857490.jpg';
+import caramelAviatorImg from '../assets/images/jacket_toddler_gold_bomber_v2_1794755421161.jpg';
+import obsidianMotoImg from '../assets/images/jacket_teen_twotone_moto_v2_1794755421568.jpg';
+import plumTrenchImg from '../assets/images/jacket_girls_plum_trench_v2_1794755421573.jpg';
+import sapphireAlpineImg from '../assets/images/jacket_all_age_sapphire_ski_v2_1794755421966.jpg';
+
 export type GenderFilter = 'All' | 'Boys' | 'Girls' | 'Unisex';
 export type AgeBracket =
   | 'All Ages'
@@ -47,7 +60,7 @@ export interface LookbookFeature {
   actionLabel: string;
 }
 
-export const HERO_CAMPAIGN_IMAGE = '/src/assets/images/hero_mk_jackets_v2_1794755419049.jpg';
+export const HERO_CAMPAIGN_IMAGE = '/assets/aistudio/image_c5e754b4.png';
 
 export const LOOKBOOK_FEATURES: LookbookFeature[] = [
   {
@@ -55,7 +68,7 @@ export const LOOKBOOK_FEATURES: LookbookFeature[] = [
     title: 'Boys Dusk Architecture Edit',
     subtitle: 'Emerald Crown Varsity & Obsidian-Gold Moto · Ages 2 to Adult',
     aspectClass: 'aspect-[4/3]',
-    image: '/src/assets/images/lookbook_boys_street_v3_1794894859420.jpg',
+    image: lookbookBoysImg,
     linkedJacketId: 'mk-emerald-racing-varsity',
     actionLabel: 'Shop Boys Edit',
   },
@@ -64,7 +77,7 @@ export const LOOKBOOK_FEATURES: LookbookFeature[] = [
     title: 'Girls Evening Satin & Trench Edit',
     subtitle: 'Ruby Satin Puffer & Royal Plum Storm Trench · Ages 2 to Adult',
     aspectClass: 'aspect-[4/3]',
-    image: '/src/assets/images/lookbook_girls_editorial_v3_1794894859675.jpg',
+    image: lookbookGirlsImg,
     linkedJacketId: 'mk-crimson-satin-puffer',
     actionLabel: 'Shop Girls Edit',
   },
@@ -73,7 +86,7 @@ export const LOOKBOOK_FEATURES: LookbookFeature[] = [
     title: 'Gold Bullion MK Crest Craft',
     subtitle: 'Hand-finished bullion embroidery & brushed brass MK hardware',
     aspectClass: 'aspect-[4/3]',
-    image: '/src/assets/images/crest_closeup_craft_v3_1794894859796.jpg',
+    image: crestMacroImg,
     linkedJacketId: 'mk-champagne-velvet-puffer',
     actionLabel: 'Inspect Velvet Puffer',
   },
@@ -137,7 +150,7 @@ export const JACKETS: JacketProduct[] = [
       'Two-way polished nickel zipper & cream leather welt pockets',
       'Gold bullion-thread MK crown crest embroidered on left chest',
     ],
-    image: '/src/assets/images/jacket_boys_racing_v2_1794755419751.jpg',
+    image: emeraldVarsityImg,
     sizes: [
       { label: '3T', ageRange: '2–3 Yrs', minAge: 2, maxAge: 3, minHeightCm: 88, maxHeightCm: 100, chestCm: '56 cm', lengthCm: '40 cm', bracket: 'Toddlers (2-5Y)' },
       { label: '5Y', ageRange: '4–5 Yrs', minAge: 4, maxAge: 5, minHeightCm: 101, maxHeightCm: 113, chestCm: '60 cm', lengthCm: '44 cm', bracket: 'Toddlers (2-5Y)' },
@@ -167,7 +180,7 @@ export const JACKETS: JacketProduct[] = [
       'Plush tonal faux-fur collar with gold MK zipper pull & cuff bar',
       'Raised champagne-gold MK circular crest on chest',
     ],
-    image: '/src/assets/images/jacket_girls_crimson_puffer_v2_1794755420808.jpg',
+    image: crimsonPufferImg,
     sizes: [
       { label: '3T', ageRange: '2–3 Yrs', minAge: 2, maxAge: 4, minHeightCm: 88, maxHeightCm: 105, chestCm: '57 cm', lengthCm: '41 cm', bracket: 'Toddlers (2-5Y)' },
       { label: '6Y', ageRange: '5–6 Yrs', minAge: 5, maxAge: 7, minHeightCm: 106, maxHeightCm: 124, chestCm: '63 cm', lengthCm: '46 cm', bracket: 'Kids (6-10Y)' },
@@ -197,7 +210,7 @@ export const JACKETS: JacketProduct[] = [
       'Custom MK-engraved brushed gold main & pocket zipper pulls',
       '3D gold bullion & metallic MK crown crest on left chest',
     ],
-    image: '/src/assets/images/jacket_girls_champagne_velvet_v3_1794894857186.jpg',
+    image: champagneVelvetImg,
     sizes: [
       { label: '4T', ageRange: '3–4 Yrs', minAge: 2, maxAge: 4, minHeightCm: 88, maxHeightCm: 108, chestCm: '58 cm', lengthCm: '42 cm', bracket: 'Toddlers (2-5Y)' },
       { label: '8Y', ageRange: '7–8 Yrs', minAge: 5, maxAge: 9, minHeightCm: 109, maxHeightCm: 136, chestCm: '68 cm', lengthCm: '49 cm', bracket: 'Kids (6-10Y)' },
@@ -226,7 +239,7 @@ export const JACKETS: JacketProduct[] = [
       'Accordion quilted shoulder and elbow articulation panels',
       'Sculpted winged metallic gold & silver MK chest crest',
     ],
-    image: '/src/assets/images/jacket_boys_midnight_leather_v3_1794894858121.jpg',
+    image: cobaltLeatherImg,
     sizes: [
       { label: '8Y', ageRange: '7–8 Yrs', minAge: 6, maxAge: 9, minHeightCm: 114, maxHeightCm: 136, chestCm: '69 cm', lengthCm: '49 cm', bracket: 'Kids (6-10Y)' },
       { label: '12Y', ageRange: '11–12 Yrs', minAge: 10, maxAge: 13, minHeightCm: 137, maxHeightCm: 158, chestCm: '79 cm', lengthCm: '56 cm', bracket: 'Juniors (11-14Y)' },
@@ -255,7 +268,7 @@ export const JACKETS: JacketProduct[] = [
       'Brushed cotton storm placket with easy-snap brass buttons',
       'Embroidered gold bullion MK Kids crown shield on chest',
     ],
-    image: '/src/assets/images/jacket_toddler_coral_teddy_v3_1794894857490.jpg',
+    image: coralTeddyImg,
     sizes: [
       { label: '2T', ageRange: '2 Yrs', minAge: 2, maxAge: 2, minHeightCm: 88, maxHeightCm: 95, chestCm: '54 cm', lengthCm: '38 cm', bracket: 'Toddlers (2-5Y)' },
       { label: '3T', ageRange: '3 Yrs', minAge: 3, maxAge: 3, minHeightCm: 96, maxHeightCm: 103, chestCm: '56 cm', lengthCm: '40 cm', bracket: 'Toddlers (2-5Y)' },
@@ -284,7 +297,7 @@ export const JACKETS: JacketProduct[] = [
       'Ultra-soft cream shearling fleece collar & interior body',
       'Woven espresso & gold MK laurel shield on chest',
     ],
-    image: '/src/assets/images/jacket_toddler_gold_bomber_v2_1794755421161.jpg',
+    image: caramelAviatorImg,
     sizes: [
       { label: '2T', ageRange: '2 Yrs', minAge: 2, maxAge: 3, minHeightCm: 88, maxHeightCm: 100, chestCm: '54 cm', lengthCm: '39 cm', bracket: 'Toddlers (2-5Y)' },
       { label: '4T', ageRange: '4 Yrs', minAge: 4, maxAge: 5, minHeightCm: 101, maxHeightCm: 113, chestCm: '58 cm', lengthCm: '43 cm', bracket: 'Toddlers (2-5Y)' },
@@ -313,7 +326,7 @@ export const JACKETS: JacketProduct[] = [
       'Asymmetrical brass moto front zip & utility arm pocket',
       'Sculpted gold & silver MK crowned wreath crest on chest',
     ],
-    image: '/src/assets/images/jacket_teen_twotone_moto_v2_1794755421568.jpg',
+    image: obsidianMotoImg,
     sizes: [
       { label: '8Y', ageRange: '7–8 Yrs', minAge: 6, maxAge: 9, minHeightCm: 114, maxHeightCm: 134, chestCm: '69 cm', lengthCm: '49 cm', bracket: 'Kids (6-10Y)' },
       { label: '10Y', ageRange: '9–10 Yrs', minAge: 10, maxAge: 11, minHeightCm: 135, maxHeightCm: 148, chestCm: '74 cm', lengthCm: '53 cm', bracket: 'Kids (6-10Y)' },
@@ -343,7 +356,7 @@ export const JACKETS: JacketProduct[] = [
       'Removable waist tie belt, buttoned shoulder epaulettes & storm flap',
       'Ornate gold-thread MK royal crest stitched on left chest',
     ],
-    image: '/src/assets/images/jacket_girls_plum_trench_v2_1794755421573.jpg',
+    image: plumTrenchImg,
     sizes: [
       { label: '6Y', ageRange: '6–7 Yrs', minAge: 6, maxAge: 8, minHeightCm: 114, maxHeightCm: 130, chestCm: '64 cm', lengthCm: '46 cm', bracket: 'Kids (6-10Y)' },
       { label: '10Y', ageRange: '9–10 Yrs', minAge: 9, maxAge: 10, minHeightCm: 131, maxHeightCm: 142, chestCm: '72 cm', lengthCm: '52 cm', bracket: 'Kids (6-10Y)' },
@@ -372,7 +385,7 @@ export const JACKETS: JacketProduct[] = [
       'Dual waterproof chest zip pockets & snow-lock storm cuffs',
       'Luminous silver-white MK Alpine Peaks crest on left chest',
     ],
-    image: '/src/assets/images/jacket_all_age_sapphire_ski_v2_1794755421966.jpg',
+    image: sapphireAlpineImg,
     sizes: [
       { label: '4T', ageRange: '3–4 Yrs', minAge: 2, maxAge: 5, minHeightCm: 88, maxHeightCm: 113, chestCm: '58 cm', lengthCm: '45 cm', bracket: 'Toddlers (2-5Y)' },
       { label: '8Y', ageRange: '7–8 Yrs', minAge: 6, maxAge: 10, minHeightCm: 114, maxHeightCm: 142, chestCm: '70 cm', lengthCm: '53 cm', bracket: 'Kids (6-10Y)' },
