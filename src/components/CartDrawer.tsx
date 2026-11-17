@@ -30,7 +30,19 @@ interface CartDrawerProps {
   onClose: () => void;
   onUpdateQty: (jacketId: string, sizeLabel: string, delta: number) => void;
   onRemoveItem: (jacketId: string, sizeLabel: string) => void;
-  onOrderComplete: (order: ConfirmedOrder) => void;
+  onSubmitOrder: (payload: {
+    orderNumber: string;
+    customerName: string;
+    phone: string;
+    address: string;
+    postalCode: string;
+    paymentMethod: 'Card' | 'Cash on Delivery';
+    shippingSpeed: 'Standard' | 'Express';
+    giftNote: string;
+    shippingFee: number;
+    total: number;
+    items: BagItem[];
+  }) => Promise<ConfirmedOrder>;
 }
 
 const FREE_SHIPPING_THRESHOLD = 150;
@@ -42,7 +54,7 @@ export function CartDrawer({
   onClose,
   onUpdateQty,
   onRemoveItem,
-  onOrderComplete,
+  onSubmitOrder,
 }: CartDrawerProps) {
   const [step, setStep] = useState<'bag' | 'checkout' | 'confirmed'>('bag');
   const [customerName, setCustomerName] = useState('');
@@ -53,6 +65,7 @@ export function CartDrawer({
   const [shippingSpeed, setShippingSpeed] = useState<'Standard' | 'Express'>('Standard');
   const [giftNote, setGiftNote] = useState('');
   const [activeOrder, setActiveOrder] = useState<ConfirmedOrder | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -71,30 +84,30 @@ export function CartDrawer({
   const total = subtotal + shippingFee;
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
-  const handleCheckoutSubmit = (e: FormEvent) => {
+  const handleCheckoutSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const randomNum = Math.floor(1040 + Math.random() * 8900);
-    const totalUnits = items.reduce((sum, item) => sum + item.quantity, 0);
-    const order: ConfirmedOrder = {
-      orderNumber: `MK-${randomNum}`,
-      customerName,
-      phone,
-      address,
-      postalCode,
-      paymentMethod,
-      shippingSpeed,
-      giftNote: giftNote.trim(),
-      total,
-      itemCount: totalUnits,
-      createdAt: new Date().toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      }),
-    };
-    setActiveOrder(order);
-    onOrderComplete(order);
-    setStep('confirmed');
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      const randomNum = Math.floor(1040 + Math.random() * 8900);
+      const order = await onSubmitOrder({
+        orderNumber: `MK-${randomNum}`,
+        customerName,
+        phone,
+        address,
+        postalCode,
+        paymentMethod,
+        shippingSpeed,
+        giftNote: giftNote.trim(),
+        shippingFee,
+        total,
+        items,
+      });
+      setActiveOrder(order);
+      setStep('confirmed');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -439,9 +452,10 @@ export function CartDrawer({
                 <button
                   type="submit"
                   form="checkout-form"
-                  className="flex-1 py-3.5 bg-[#D4A853] hover:bg-[#E2BA6B] text-[#090A0D] text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+                  disabled={isSubmitting}
+                  className="flex-1 py-3.5 bg-[#D4A853] hover:bg-[#E2BA6B] disabled:opacity-60 text-[#090A0D] text-sm font-semibold rounded-lg transition-colors cursor-pointer"
                 >
-                  Confirm Order (${total})
+                  {isSubmitting ? 'Confirming Order...' : `Confirm Order ($${total})`}
                 </button>
               </div>
             )}

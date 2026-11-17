@@ -14,12 +14,20 @@ import {
   JacketProduct,
   SizeOption,
 } from './data/jackets';
+import {
+  fetchJacketsFromSupabase,
+  fetchSavedFavoritesFromSupabase,
+  SubmitOrderPayload,
+  submitOrderToSupabase,
+  syncSavedFavoriteToSupabase,
+} from './services/mkStoreService';
 
 const BAG_STORAGE_KEY = 'mk_outerwear_bag_v1';
 const SAVED_STORAGE_KEY = 'mk_outerwear_saved_v1';
 const ORDER_STORAGE_KEY = 'mk_outerwear_last_order_v1';
 
 export default function App() {
+  const [jackets, setJackets] = useState<JacketProduct[]>(JACKETS);
   const [genderFilter, setGenderFilter] = useState<GenderFilter>('All');
   const [ageFilter, setAgeFilter] = useState<AgeBracket>('All Ages');
   const [searchQuery, setSearchQuery] = useState('');
@@ -57,6 +65,24 @@ export default function App() {
   });
   const [isBagOpen, setIsBagOpen] = useState(false);
 
+  // Load catalog & saved favorites from Supabase on initial mount
+  useEffect(() => {
+    let active = true;
+    fetchJacketsFromSupabase().then((remoteJackets) => {
+      if (active && remoteJackets.length > 0) {
+        setJackets(remoteJackets);
+      }
+    });
+    fetchSavedFavoritesFromSupabase().then((remoteSaved) => {
+      if (active && remoteSaved !== null) {
+        setFavoriteIds((prev) => Array.from(new Set([...prev, ...remoteSaved])));
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   useEffect(() => {
     try {
       localStorage.setItem(BAG_STORAGE_KEY, JSON.stringify(bagItems));
@@ -75,7 +101,7 @@ export default function App() {
 
   const filteredJackets = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    const matched = JACKETS.filter((jacket) => {
+    const matched = jackets.filter((jacket) => {
       const matchesGender =
         genderFilter === 'All'
           ? true
@@ -105,11 +131,11 @@ export default function App() {
       return [...matched].sort((a, b) => b.price - a.price);
     }
     return matched;
-  }, [genderFilter, ageFilter, searchQuery, sortBy, onlySaved, favoriteIds]);
+  }, [jackets, genderFilter, ageFilter, searchQuery, sortBy, onlySaved, favoriteIds]);
 
   const compareJackets = useMemo(
-    () => JACKETS.filter((j) => compareIds.includes(j.id)),
-    [compareIds],
+    () => jackets.filter((j) => compareIds.includes(j.id)),
+    [jackets, compareIds],
   );
 
   const bagCount = useMemo(
@@ -118,9 +144,11 @@ export default function App() {
   );
 
   const handleToggleFavorite = (jacketId: string) => {
+    const willSave = !favoriteIds.includes(jacketId);
     setFavoriteIds((prev) =>
-      prev.includes(jacketId) ? prev.filter((id) => id !== jacketId) : [...prev, jacketId],
+      willSave ? [...prev, jacketId] : prev.filter((id) => id !== jacketId),
     );
+    void syncSavedFavoriteToSupabase(jacketId, willSave);
   };
 
   const handleToggleCompare = (jacketId: string) => {
@@ -169,7 +197,8 @@ export default function App() {
     );
   };
 
-  const handleOrderComplete = (order: ConfirmedOrder) => {
+  const handleSubmitOrder = async (payload: SubmitOrderPayload): Promise<ConfirmedOrder> => {
+    const order = await submitOrderToSupabase(payload);
     setBagItems([]);
     setLastOrder(order);
     try {
@@ -177,6 +206,7 @@ export default function App() {
     } catch {
       // Ignore storage quota errors
     }
+    return order;
   };
 
   const handleShopNow = () => {
@@ -248,7 +278,7 @@ export default function App() {
         onClose={() => setIsBagOpen(false)}
         onUpdateQty={handleUpdateQty}
         onRemoveItem={handleRemoveItem}
-        onOrderComplete={handleOrderComplete}
+        onSubmitOrder={handleSubmitOrder}
       />
     </div>
   );
