@@ -1,0 +1,6 @@
+{
+  "name": "MK Outerwear",
+  "description": "All-age jackets and outerwear for boys and girls featuring signature MK crest embroidery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
